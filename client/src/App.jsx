@@ -1,10 +1,19 @@
-import React from "react";
-
+import { Footer, Header } from "./Components";
+import Container from "react-bootstrap/esm/Container";
+// import { HomeScreen } from "./Pages";
+import "./App.css";
+import { Outlet } from "react-router-dom";
 function App() {
 	return (
-		<h1 className="" style={{ fontWeight: "bold", fontSize: "35px" }}>
-			React App
-		</h1>
+		<>
+			<Header />
+			<main className="py-3">
+				<Container>
+					<Outlet />
+				</Container>
+			</main>
+			<Footer />
+		</>
 	);
 }
 
