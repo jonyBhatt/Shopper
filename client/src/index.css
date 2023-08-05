@@ -5,4 +5,24 @@ body,
 	box-sizing: border-box;
 	padding: 0;
 	margin: 0;
+	background: #d3d3d3 !important;
+}
+
+main {
+	min-height: 80vh;
+}
+
+.rating span {
+	margin: 0.1rem;
+}
+
+.rating svg {
+	color: #f8e285;
+}
+
+.rating .rating-text {
+	padding-left: 1rem;
+	font-size: small;
+	color: lightslategray;
+	font-weight: 300;
 }
