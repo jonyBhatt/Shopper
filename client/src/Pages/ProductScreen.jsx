@@ -1,14 +1,33 @@
 import { Link, useParams } from "react-router-dom";
-import { productData } from "../utils/ProductsData";
+
 import { BiLeftArrowCircle } from "react-icons/bi";
 import { Button, Card, Col, Image, ListGroup, Row } from "react-bootstrap";
 import Rating from "../Components/Rating";
 import { FaCartPlus } from "react-icons/fa";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { baseUrl } from "../utils/baseUrl";
 
 const ProductScreen = () => {
+	const [product, setProduct] = useState({});
 	const { id: productId } = useParams();
-	const product = productData.find((p) => p.id.toString() === productId);
-	console.log(product);
+	// console.log(product);
+	useEffect(() => {
+		const getProducts = async () => {
+			try {
+				const { data } = await axios.get(`${baseUrl}/products/${productId}`);
+				setProduct(data);
+				// console.log(product);
+
+				// console.log(data);
+			} catch (error) {
+				console.log(error);
+			}
+		};
+		getProducts();
+
+		return () => getProducts();
+	}, [product, productId]);
 	return (
 		<div className="bg-white" style={{ height: "100vh" }}>
 			<Link to="/" className=" btn fw-bold ">
@@ -27,7 +46,14 @@ const ProductScreen = () => {
 							<span>{product.description}</span>
 						</ListGroup.Item>
 						<ListGroup.Item>
-							<Rating rate={product.rating.rate} text={product.rating.count} />
+							{product.rating && (
+								<Rating
+									rate={product.rating.rate}
+									text={product.rating.count}
+								/>
+							)}
+
+							{/* {product.rating.rate} {product.rating.count} */}
 						</ListGroup.Item>
 						<ListGroup.Item>
 							<p className="fs-7">
