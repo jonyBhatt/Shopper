@@ -2,8 +2,10 @@ import express from "express";
 import dotenv from "dotenv";
 import { productData } from "./ProductsData.js";
 import cors from "cors";
+import { connect } from "./config/connectDB.js";
 const app = express();
 dotenv.config();
+connect();
 
 const port = process.env.PORT || 4000;
 
