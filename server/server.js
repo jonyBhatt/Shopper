@@ -4,6 +4,7 @@ import { productData } from "./data/ProductsData.js";
 import cors from "cors";
 import { connect } from "./config/connectDB.js";
 import router from "./routes/productRouter.js";
+import { errorHandler, notFound } from "./middlewares/errorMiddleware.js";
 const app = express();
 dotenv.config();
 connect();
@@ -20,18 +21,8 @@ app.get("/", (req, res) => {
 
 app.use("/api/products", router);
 
-// app.get("/products/:id", (req, res) => {
-// 	try {
-// 		const { id } = req.params;
-// 		const product = productData.find((p) => p.id.toString() === id);
-// 		res.status(200).json(product);
-// 	} catch (error) {
-// 		res.status(404).json({
-// 			message: "Not found products",
-// 			error: error.message,
-// 		});
-// 	}
-// });
+app.use(notFound);
+app.use(errorHandler);
 
 app.listen(port, () => {
 	console.log(`Server is running on ${port}`);
